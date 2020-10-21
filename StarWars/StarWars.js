@@ -1,4 +1,4 @@
- //https://challenges.hackajob.co/swapi/api/
+ //http://challenges.hackajob.co/swapi/api/films/
 obj = {
     res: null,
 
@@ -6,9 +6,9 @@ obj = {
         item = results.filter(item => item[propName] === comparedValue)[0]
 
         if (item != undefined) {
-            var func = obj2[funcName]
-            var allResConcatenated = ""
-            for (let i = 0; i < item[arrName].length; i++) //p1[params[1]]
+            let func = obj2[funcName]
+            let allResConcatenated = ""
+            for (let i = 0; i < item[arrName].length; i++)
             {
 
                 allResConcatenated += func(item[arrName][i])
@@ -28,13 +28,13 @@ obj = {
 
 function getFilmsAndActors(title, actor) {
 
-    var films = receiveData('http://challenges.hackajob.co/swapi/api/films/?format=json')
+    let films = receiveData('http://challenges.hackajob.co/swapi/api/films/?format=json')
 
     obj.findTitle(films["results"], title, 'characters', 'title', 'getCharacter')
-    var people = title + ": " + obj.res + "; "
+    let people = title + ": " + obj.res + "; "
 
 
-    var page = 1
+    let page = 1
     bool = false
 
     do {
@@ -74,4 +74,4 @@ function receiveData(url) {
 }
 
 console.log(getFilmsAndActors("A New Hope", "Raymus Antilles"))
-console.log(getFilmsAndActors("A New Hope", "Nuchem Katz"))
+console.log(getFilmsAndActors("Return of the Jedi", "Nuchem Katz"))
