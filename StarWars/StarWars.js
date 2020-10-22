@@ -1,12 +1,12 @@
  //http://challenges.hackajob.co/swapi/api/films/
-obj = {
+titlesOrActors = {
     res: null,
 
     findTitle: function (results, comparedValue, arrName, propName, funcName) {
         item = results.filter(item => item[propName] === comparedValue)[0]
 
         if (item != undefined) {
-            let func = obj2[funcName]
+            let func = getFilmOrActor[funcName]
             let allResConcatenated = ""
             for (let i = 0; i < item[arrName].length; i++)
             {
@@ -30,8 +30,8 @@ function getFilmsAndActors(title, actor) {
 
     let films = receiveData('http://challenges.hackajob.co/swapi/api/films/?format=json')
 
-    obj.findTitle(films["results"], title, 'characters', 'title', 'getCharacter')
-    let people = title + ": " + obj.res + "; "
+    titlesOrActors.findTitle(films["results"], title, 'characters', 'title', 'getCharacter')
+    let people = title + ": " + titlesOrActors.res + "; "
 
 
     let page = 1
@@ -40,17 +40,17 @@ function getFilmsAndActors(title, actor) {
     do {
         var actors = receiveData('http://challenges.hackajob.co/swapi/api/people/?page=' + page + '&?format=json')
 
-        var bool = obj.findTitle(actors["results"], actor, 'films', 'name', 'getFilms')
+        var bool = titlesOrActors.findTitle(actors["results"], actor, 'films', 'name', 'getFilms')
 
         page++
     } while (bool === false && actors.next != null)
 
-    return people + actor + ": " + obj.res
+    return people + actor + ": " + titlesOrActors.res
 
 
 }
 
-obj2 = {
+getFilmOrActor = {
     getCharacter: function (item, index) {
         return receiveData(item).name
     },
